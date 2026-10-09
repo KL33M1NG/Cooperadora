@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cooperadora HSJB - Kiosco</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>🏥 Cooperadora Hospital San Juan Bautista</h1>
+    <div id="estadoTurno" class="badge">Turno: --</div>
+  </header>
+
+  <nav class="tabs">
+    <button class="tab active" data-tab="venta">🛒 Venta</button>
+    <button class="tab" data-tab="productos">📦 Productos</button>
+    <button class="tab" data-tab="registro">📋 Registro de Ventas</button>
+  </nav>
+
+  <!-- PESTAÑA VENTA -->
+  <section id="tab-venta" class="tab-content active">
+    <div class="scan-box">
+      <label>Escanear código de barras:</label>
+      <input type="text" id="inputCodigo" placeholder="Escaneá o escribí el código..." autofocus>
+      <button id="btnBuscar">Buscar</button>
+    </div>
+
+    <div id="productoActual" class="producto-card hidden">
+      <h2 id="prodNombre"></h2>
+      <p class="precio">Precio: $<span id="prodPrecio"></span></p>
+      <p>Stock: <span id="prodStock"></span></p>
+      <div class="cantidad">
+        <label>Cantidad:</label>
+        <input type="number" id="prodCantidad" value="1" min="1">
+      </div>
+      <button id="btnAgregar" class="btn-primary">➕ Agregar a la venta</button>
+    </div>
+
+    <div class="carrito">
+      <h3>🧾 Carrito del turno</h3>
+      <table id="tablaCarrito">
+        <thead>
+          <tr><th>Código</th><th>Producto</th><th>Precio</th><th>Cant.</th><th>Subtotal</th><th></th></tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <div class="total-box">
+        <strong>TOTAL: $<span id="totalTurno">0</span></strong>
+      </div>
+    </div>
+  </section>
+
+  <!-- PESTAÑA PRODUCTOS -->
+  <section id="tab-productos" class="tab-content">
+    <h2>Cargar nuevo producto</h2>
+    <form id="formProducto" class="form-producto">
+      <input type="text" id="newCodigo" placeholder="Código de barras" required>
+      <input type="text" id="newNombre" placeholder="Nombre del producto" required>
+      <input type="number" id="newPrecio" placeholder="Precio" step="0.01" required>
+      <input type="number" id="newStock" placeholder="Stock inicial" value="0">
+      <button type="submit" class="btn-primary">Guardar producto</button>
+    </form>
+
+    <h2>Productos cargados</h2>
+    <button id="btnRefrescar" class="btn-secondary">🔄 Refrescar</button>
+    <table id="tablaProductos">
+      <thead>
+        <tr><th>Código</th><th>Nombre</th><th>Precio</th><th>Stock</th></tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </section>
+
+  <!-- PESTAÑA REGISTRO -->
+  <section id="tab-registro" class="tab-content">
+    <h2>Registro de ventas del turno</h2>
+    <table id="tablaRegistro">
+      <thead>
+        <tr><th>Hora</th><th>Producto</th><th>Cant.</th><th>Total</th></tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    <div class="total-box">
+      <strong>TOTAL DEL TURNO: $<span id="totalRegistro">0</span></strong>
+    </div>
+    <button id="btnCerrarTurno" class="btn-danger btn-grande">🔒 FINALIZAR TURNO</button>
+  </section>
+
+  <!-- MODAL CONFIRMACIÓN -->
+  <div id="modal" class="modal hidden">
+    <div class="modal-content">
+      <h2 id="modalTitulo">Confirmar</h2>
+      <p id="modalMensaje"></p>
+      <div class="modal-botones">
+        <button id="btnCancelar" class="btn-secondary">Cancelar</button>
+        <button id="btnConfirmar" class="btn-primary">Confirmar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL RESUMEN -->
+  <div id="modalResumen" class="modal hidden">
+    <div class="modal-content modal-grande">
+      <h2>📊 Resumen del Turno</h2>
+      <div id="resumenContenido"></div>
+      <div class="modal-botones">
+        <button id="btnExportarPDF" class="btn-secondary">📄 Exportar PDF</button>
+        <button id="btnNuevoTurno" class="btn-primary btn-grande">▶️ COMENZAR SIGUIENTE TURNO</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
